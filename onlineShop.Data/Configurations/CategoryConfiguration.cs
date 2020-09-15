@@ -1,5 +1,5 @@
 ﻿using onlineShop.Data.Entities;
-using eShopSolution.Data.Enums;
+using onlineShop.Data.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
