@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using onlineShop.Data.Configurations;
 using onlineShop.Data.Entities;
+using onlineShop.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,6 +31,8 @@ namespace onlineShop.Data.EF
             modelBuilder.ApplyConfiguration(new PromotionConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
 
+            //Data seeding
+            modelBuilder.Seed();
             //base.OnModelCreating(modelBuilder);
         }
         public DbSet<Product> Products { get; set; }
