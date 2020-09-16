@@ -4,4 +4,17 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Catalog\Products\" />
+    <Folder Include="Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\onlineShop.Data\onlineShop.Data.csproj" />
+    <ProjectReference Include="..\onlineShop.Utilities\onlineShop.Utilities.csproj" />
+    <ProjectReference Include="..\onlineShop.ViewModels\onlineShop.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>
