@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\onlineShop.Application\onlineShop.Application.csproj" />
+    <ProjectReference Include="..\onlineShop.Data\onlineShop.Data.csproj" />
+    <ProjectReference Include="..\onlineShop.Utilities\onlineShop.Utilities.csproj" />
+    <ProjectReference Include="..\onlineShop.ViewModels\onlineShop.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

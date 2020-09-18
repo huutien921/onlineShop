@@ -4,8 +4,8 @@ using System.Text;
 
 namespace onlineShop.Utilities.Constants
 {
-    class SystemConstants
+   public class SystemConstants
     {
-        public const string MainConnectionString = "eShopSolutionDb";
+        public const string MainConnectionString = "onlineShopDb";
     }
 }
