@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using onlineShop.Application.Catalog.Products;
 using onlineShop.Data.EF;
 using onlineShop.Utilities.Constants;
@@ -30,7 +31,12 @@ namespace onlineShop.BackendApi
         {
             services.AddDbContext<OnlineShopDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
+           // add  DI 
             services.AddTransient<IPublicProductService , PublicProductService>();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger Online Shop", Version = "v1" });
+            });
             services.AddControllersWithViews();
 
         }
@@ -54,7 +60,11 @@ namespace onlineShop.BackendApi
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger onlineShop V1");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
