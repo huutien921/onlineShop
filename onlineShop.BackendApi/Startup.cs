@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using onlineShop.Application.Catalog.Products;
+using onlineShop.Application.Common;
 using onlineShop.Data.EF;
 using onlineShop.Utilities.Constants;
 
@@ -31,7 +32,9 @@ namespace onlineShop.BackendApi
         {
             services.AddDbContext<OnlineShopDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
-           // add  DI 
+            // add  DI 
+            services.AddTransient<IStorageService, FileStorageService>();
+            services.AddTransient<IManageProductService, ManageProductService>();
             services.AddTransient<IPublicProductService , PublicProductService>();
             services.AddSwaggerGen(c =>
             {
