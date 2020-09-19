@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using onlineShop.Application.Catalog.Products;
 using onlineShop.ViewModels.Catalog.Products;
+using System.Threading.Tasks;
 
 namespace onlineShop.BackendApi.Controllers
 {
@@ -21,40 +17,34 @@ namespace onlineShop.BackendApi.Controllers
             _publicProductService = publicProductService;
             _manageProductService = manageProductService;
         }
+        //http://localhost:port/product
         [HttpGet("{languageId}")]
         public async Task<IActionResult> Get(string languageId)
         {
             var products = await _publicProductService.GetAll(languageId);
             return Ok(products);
         }
-        [HttpGet("{id}/{languageId}")]
-        public async Task<IActionResult> GetById(int productId, string langugeId)
-        {
-            var product = await _manageProductService.GetById(productId, langugeId);
-            if (product == null)
-            {
-                return BadRequest("Can't find product");
-            }
-            return Ok(product);
-        }
-        [HttpGet("public-paging")]
+
+        //http://localhost:port/product/public-paging
+        [HttpGet("public-paging/{languageId}")]
         public async Task<IActionResult> Get([FromQuery] GetPublicProductPagingRequest request)
         {
             var products = await _publicProductService.GetAllByCategoryId(request);
             return Ok(products);
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> delete(int productId)
+
+        //http://localhost:port/product/1
+        [HttpGet("{id}/{languageId}")]
+        public async Task<IActionResult> GetById(int id, string languageId)
         {
-            var result = await _manageProductService.Delete(productId);
-            if (result == 0)
-            {
-                return BadRequest();
-            }
-            return Ok(result);
+            var product = await _manageProductService.GetById(id, languageId);
+            if (product == null)
+                return BadRequest("Cannot find product");
+            return Ok(product);
         }
+
         [HttpPost]
-        public async Task<IActionResult>  Create([FromForm] ProductCreateRequest request)
+        public async Task<IActionResult> Create([FromForm] ProductCreateRequest request)
         {
             var productId = await _manageProductService.Create(request);
             if (productId == 0)

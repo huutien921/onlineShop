@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +27,7 @@ namespace onlineShop.BackendApi
             services.AddDbContext<OnlineShopDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
             // add  DI 
+            services.AddControllersWithViews();
             services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IManageProductService, ManageProductService>();
             services.AddTransient<IPublicProductService , PublicProductService>();
@@ -40,7 +35,7 @@ namespace onlineShop.BackendApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger Online Shop", Version = "v1" });
             });
-            services.AddControllersWithViews();
+           
 
         }
 
