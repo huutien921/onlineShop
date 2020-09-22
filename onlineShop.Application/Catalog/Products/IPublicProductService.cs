@@ -7,8 +7,7 @@ namespace onlineShop.Application.Catalog.Products
 {
     public interface IPublicProductService
     {
-        Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request);
+        Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request, string languageId);
 
-        Task<List<ProductViewModel>> GetAll(string language);
     }
 }

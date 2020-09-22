@@ -1,18 +1,17 @@
 ﻿
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using onlineShop.Application.Common;
 using onlineShop.Data.EF;
 using onlineShop.Data.Entities;
 using onlineShop.Utilities.Exceptions;
 using onlineShop.ViewModels.Catalog.Products;
 using onlineShop.ViewModels.Common;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace onlineShop.Application.Catalog.Products

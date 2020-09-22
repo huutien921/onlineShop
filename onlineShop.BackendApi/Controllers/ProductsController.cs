@@ -7,37 +7,31 @@ namespace onlineShop.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly IPublicProductService _publicProductService;
         private readonly IManageProductService _manageProductService;
-        public ProductController(IPublicProductService publicProductService, IManageProductService manageProductService)
+        public ProductsController(IPublicProductService publicProductService, IManageProductService manageProductService)
         {
 
             _publicProductService = publicProductService;
             _manageProductService = manageProductService;
         }
-        //http://localhost:port/product
-        [HttpGet("{languageId}")]
-        public async Task<IActionResult> Get(string languageId)
-        {
-            var products = await _publicProductService.GetAll(languageId);
-            return Ok(products);
-        }
+    
 
-        //http://localhost:port/product/public-paging
-        [HttpGet("public-paging/{languageId}")]
-        public async Task<IActionResult> Get([FromQuery] GetPublicProductPagingRequest request)
+        //http://localhost:port/products
+        [HttpGet("{languageId}")]
+        public async Task<IActionResult> GetAllPaging( string languageId, [FromQuery] GetPublicProductPagingRequest request)
         {
-            var products = await _publicProductService.GetAllByCategoryId(request);
+            var products = await _publicProductService.GetAllByCategoryId(request , languageId);
             return Ok(products);
         }
 
         //http://localhost:port/product/1
-        [HttpGet("{id}/{languageId}")]
-        public async Task<IActionResult> GetById(int id, string languageId)
+        [HttpGet("{productId}/{languageId}")]
+        public async Task<IActionResult> GetById(int productId, string languageId)
         {
-            var product = await _manageProductService.GetById(id, languageId);
+            var product = await _manageProductService.GetById(productId, languageId);
             if (product == null)
                 return BadRequest("Cannot find product");
             return Ok(product);
@@ -46,6 +40,10 @@ namespace onlineShop.BackendApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] ProductCreateRequest request)
         {
+            if (ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var productId = await _manageProductService.Create(request);
             if (productId == 0)
                 return BadRequest();
@@ -73,7 +71,7 @@ namespace onlineShop.BackendApi.Controllers
             return Ok();
         }
 
-        [HttpPut("price/{id}/{newPrice}")]
+        [HttpPatch("price/{productId}/{newPrice}")]
         public async Task<IActionResult> UpdatePrice(int id, decimal newPrice)
         {
             var isSuccessful = await _manageProductService.UpdatePrice(id, newPrice);
