@@ -20,9 +20,10 @@ namespace onlineShop.BackendApi.Controllers
 
         public IActionResult Index()
         {
-            return Ok("ok");
+            return Ok("ok hj");
         }
 
        
     }
 }
+ 
